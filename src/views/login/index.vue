@@ -26,7 +26,7 @@
 </template>
 
 <script>
-
+import store from '@/store'
 export default {
   // 表单数据规则
   data () {
@@ -60,7 +60,9 @@ export default {
           this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm)
             .then(res => {
               // res是响应对象  包括响应体
-              console.log(res.data)
+              // console.log(res.data)
+              store.setUser(res.data.data) // 收集用户信息
+              this.$router.push('/')
             }).catch(() => {
               // 错误提示
               this.$message.error('请输入正确的手机号和验证码')
