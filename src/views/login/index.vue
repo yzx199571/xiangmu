@@ -27,7 +27,7 @@
 
 <script>
 import store from '@/store'
-// import { async } from 'q'
+
 export default {
   // 表单数据规则
   data () {

@@ -9,5 +9,8 @@ export default {
   getUser () {
     // 获取用户的信息sessionStorage
     return JSON.parse(window.sessionStorage.getItem(KEY) || '{}')
+  },
+  clearUser () {
+    window.sessionStorage.removeItem(KEY)
   }
 }
