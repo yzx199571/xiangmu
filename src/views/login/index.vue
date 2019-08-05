@@ -6,7 +6,7 @@
         <el-form-item prop="mobile">
           <el-input placeholder="请输入手机号" v-model="loginForm.mobile"></el-input>
         </el-form-item>
-        <el-form-item prop="code" >
+        <el-form-item prop="code">
           <el-input
             style="width:238px;margin-right:10px"
             placeholder="请输入验证码"
@@ -18,7 +18,7 @@
           <el-checkbox :value="true">我已阅读并同意协议条款</el-checkbox>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" style="width:100%" @click="login">登录</el-button>
+          <el-button type="primary" style="width:100%" @click="login(loginForm)">登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -27,6 +27,7 @@
 
 <script>
 import store from '@/store'
+// import { async } from 'q'
 export default {
   // 表单数据规则
   data () {
@@ -53,20 +54,33 @@ export default {
     }
   },
   methods: {
-    login () {
+    login (loginForm) {
       // 对整个表单进行校验
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm)
-            .then(res => {
-              // res是响应对象  包括响应体
-              // console.log(res.data)
-              store.setUser(res.data.data) // 收集用户信息
-              this.$router.push('/')
-            }).catch(() => {
-              // 错误提示
-              this.$message.error('请输入正确的手机号和验证码')
+          // this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm)
+          //   .then(res => {
+          //     // res是响应对象  包括响应体
+          //     // console.log(res.data)
+          //     store.setUser(res.data.data) // 收集用户信息 储存信息
+          //     this.$router.push('/')
+          //     console.log(res)
+          //   }).catch(() => {
+          //     // 错误提示
+          //     this.$message.error('请输入正确的手机号和验证码')
+          //   })
+          // 使用async和await   res是Promise对象成功返回的结果  res包含了响应结果 try 捕获错误
+          try {
+            const { data: { data } } = await this.$http.post('authorizations', this.loginForm)
+            store.setUser(data)
+            this.$router.push('/')
+            this.$message({
+              message: '恭喜你，登陆成功',
+              type: 'success'
             })
+          } catch (e) {
+            this.$message.error('请输入正确的手机号和验证码')
+          }
         }
       })
     }
