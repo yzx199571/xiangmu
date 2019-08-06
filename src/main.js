@@ -10,8 +10,12 @@ import '@/style/index.less' // 全局css样式
 // 引入axios
 import axios from '@/api'
 // 引入路由 @是路由的别名src 只有在脚手架下可以使用
-import router from '@/router'
-Vue.prototype.$http = axios // 从api里面导出 处理过的 axios
+import router from '@/router' // 从api里面导出 处理过的 axios
+
+import mycom from '@/components'
+Vue.use(mycom)
+
+Vue.prototype.$http = axios
 
 Vue.use(ElementUI)
 // 控制台提示信息  开发环境提示 详细一些
