@@ -1,11 +1,12 @@
 <template>
     <div class="container">
-      <div class="content">
-        <slot name="content" :msg="msg">content</slot>
+      <div class="header">
+        <slot></slot>
       </div>
-      <div class="footer">
-        <slot name="footer"></slot>
+      <div slot="content">
+        <slot></slot>
       </div>
+      <div class="footer">footer</div>
     </div>
 </template>
 
