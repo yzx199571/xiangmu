@@ -3,6 +3,7 @@
 import Mybread from '@/components/my-bread'
 import Mytext from '@/components/my-text'
 import myChannel from '@/components/my-channel'
+import myImage from '@/components/my-image'
 // vue插件暴露一个对象  对象中由一个选项 install安装的意思
 export default {
   install (Vue) {
@@ -11,5 +12,6 @@ export default {
     Vue.component(Mybread.name, Mybread)
     Vue.component(Mytext.name, Mytext)
     Vue.component(myChannel.name, myChannel)
+    Vue.component(myImage.name, myImage)
   }
 }
