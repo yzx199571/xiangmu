@@ -67,6 +67,8 @@
 </template>
 
 <script>
+// 费父子之间传值
+import eventBus from '@/components/eventBus.js'
 import store from '@/store'
 export default {
   data () {
@@ -77,6 +79,14 @@ export default {
     }
   },
   created () {
+    // 更新名称 费父子之间传值
+    eventBus.$on('uploadName', (name) => {
+      this.name = name
+    })
+    // 跟新头像
+    eventBus.$on('uploadPhoto', (photo) => {
+      this.photo = photo
+    })
     const user = store.getUser()
     this.name = user.name
     this.photo = user.photo
